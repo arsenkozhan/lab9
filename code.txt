@@ -1,0 +1,13 @@
+aws ecs create-cluster --cluster-name fargate-cluster
+
+cd /Users/macbook/Desktop/cloudtech/lab9
+
+aws ecs register-task-definition --cli-input-json file://lab9.json
+
+aws ecs list-task-definitions
+
+aws ecs create-service --cluster fargate-cluster --service-name fargate-service --task-definition sample-fargate:1 --desired-count 1 --launch-type "FARGATE" --network-configuration "awsvpcConfiguration={subnets=[subnet-a7aa0fcc],securityGroups=[sg-0197885bf6f789e89],assignPublicIp=ENABLED}"
+
+aws ecs list-services --cluster fargate-cluster
+
+aws ecs describe-services --cluster fargate-cluster --services fargate-service
